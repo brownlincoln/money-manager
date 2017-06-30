@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Money Keeper</title>
+        <link rel="stylesheet" href="./vendor/bootstrap-3.3.7.css">
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <script src="./vendor/jquery-3.1.1.js"></script>
+        <script src="./vendor/js-webshim/minified/polyfiller.js"></script>
+        <script src="./window.js"></script>
+    </head>
+    <body>
+        <div id="container" class="container-fluid">
+            <form action="#" class="form-inline">
+                <div class="row total-money">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label>当前总现金：&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <input type="text" class="form-control" id="total-input" placeholder="输入现在的总现金">
+                        </div>
+                    </div>
+                </div>
+                <div class="row in-month">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label>每月固定收入：</label>
+                            <input type="text" class="form-control" id="in-month-input" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row in-random">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="">不固定的收入：<i class="fa fa-plus-circle" aria-hidden="true"></i></label><br/>
+                            <div class="in-random-list">
+                                <label for="">时间：</label><input id="in-random-input-date" class="form-control" type="date" data-date-inline-picker="true" />
+                                <label for="">金额：</label><input id="in-random-input-amount" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row out-month">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label>每月固定支出：</label>
+                            <input type="text" class="form-control" id="out-month-input" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row out-random">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>不固定的支出：<i class="fa fa-plus-circle" aria-hidden="true"></i></label><br/>
+                        <div class="out-random-list" >
+                            <label>时间：</label><input id="out-random-input-date" class="form-control" type="date" data-date-inline-picker="true" />
+                            <label>金额：</label><input id="out-random-input-amount" class="form-control" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row end-time">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>选择计算的时间结束点：</label>
+                        <input id="end-time-input" class="form-control" type="date" data-date-inline-picker="true" />
+                    </div>
+                </div>
+                <input id="submit-btn" class="btn btn-default" type="submit" value="提交">
+            </form>
+            
+        </div>
+    </body>
+</html>

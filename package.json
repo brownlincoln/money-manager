@@ -1,0 +1,14 @@
+{
+  "name": "moneykeeper",
+  "version": "1.0.0",
+  "description": "a tool to keep record of your money in and out",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js"
+  },
+  "author": "Chris",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "1.6.11"
+  }
+}

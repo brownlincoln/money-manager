@@ -1,5 +1,11 @@
 
+.has-warning {
+    border-color: #ffff10;
+}
 
+.ui-datepicker-calendar {
+    display: none;
+}
 
 
 

@@ -3,3 +3,4 @@ node_modules/
 vendor/
 .vscode
 npm-debug.log
+release-builds

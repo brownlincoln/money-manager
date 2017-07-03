@@ -1,3 +1,4 @@
+const Store = require("./ioutils.js");
 
 //ready for operate
 $(function() {
@@ -111,18 +112,14 @@ function checkInput() {
         });
     });
     if(errors > 0) {
-        console.log(errors);
+        //console.log(errors);
         $(".msg").text("加*的输入框必须填写");
         return false;
     }
     return true;
 }
 
-function calculateResult() {
-    calculateSurplusMoney();
-}
-
-function calculateSurplusMoney() {
+function parseDataFromUser() {
     var totalMoneyNow = +$("#total-input").val().trim();
     var curDate = getCurDate("yyyy-MM-dd");
     //console.log(curDate);
@@ -136,7 +133,7 @@ function calculateSurplusMoney() {
         var tmpInList = [];
         var reason = $(this).children("input").eq(0).val().trim();
         var inDate = $(this).children("input").eq(1).val().trim();
-        var inAmount = $(this).children("input").eq(2).val().trim();
+        var inAmount = +($(this).children("input").eq(2).val().trim());
         tmpInList.push(reason, inDate, inAmount);
         inList.push(tmpInList);
     });
@@ -148,11 +145,33 @@ function calculateSurplusMoney() {
         var tmpOutList = [];
         var reason = $(this).children("input").eq(0).val().trim();
         var inDate = $(this).children("input").eq(1).val().trim();
-        var inAmount = $(this).children("input").eq(2).val().trim();
-        tmpOutList.push(reason, inDate, inAmount);
+        var outAmount = +($(this).children("input").eq(2).val().trim());
+        tmpOutList.push(reason, inDate, outAmount);
         outList.push(tmpOutList);
     });
+    return {
+        "totalMoneyNow": totalMoneyNow,
+        "curDate": curDate,
+        "endDate": endDate,
+        "inMonth": inMonth,
+        "outMonth": outMonth,
+        "inList": inList,
+        "outList": outList
+    };
+}
+function calculateResult() {
+    calculateSurplusMoney();
+}
 
+function calculateSurplusMoney() {
+    var userInput = parseDataFromUser();
+    var totalMoneyNow = userInput.totalMoneyNow;
+    var curDate = userInput.curDate;
+    var endDate = userInput.endDate;
+    var inMonth = userInput.inMonth;
+    var outMonth = userInput.outMonth;
+    var inList = userInput.inList;
+    var outList = userInput.outList;
     //得到月份差异
     var yearDiff = endDate.split("-")[0] - curDate.split("-")[0];
     var monthDiff = +yearDiff * 12 + +(endDate.split("-")[1]) - +(curDate.split("-")[1]);
@@ -170,11 +189,11 @@ function calculateSurplusMoney() {
 
     var variableIn = 0;
     for(var index in inList) {
-        variableIn += (+inList[index][2]);
+        variableIn += inList[index][2];
     }
     var variableOut = 0;
     for(var index in outList) {
-        variableOut += (+outList[index][2]);
+        variableOut += outList[index][2];
     }
     surplusMoney = surplusMoney + variableIn - variableOut;
     var msg = "在" + endDate.split("-")[0] + "年" + endDate.split("-")[1] + "月末" + "，您的现金为" +　surplusMoney;
@@ -188,7 +207,20 @@ function preProcess() {
 }
 
 function postProcess() {
+    storeHistoryInput();
+}
 
+function storeHistoryInput() {
+    var userInput = parseDataFromUser();
+    //新建一个用于存储数据的工具类。如果在用户的AppData里没有文件，则会用默认的defaults，为空。
+    const store = new Store({
+        configName: "history-input",
+        defaults: {}
+    });
+    var now = new Date();
+    store.set(now.getTime(), userInput);
+    // console.log("now:" + now.getTime());
+    // console.log("data:" + store);
 }
 
 function getCurDate(f) {

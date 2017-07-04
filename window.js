@@ -146,6 +146,7 @@ function parseDataFromUser() {
         var reason = $(this).children("input").eq(0).val().trim();
         var inDate = $(this).children("input").eq(1).val().trim();
         var outAmount = +($(this).children("input").eq(2).val().trim());
+        //outList中每个元素是一个List
         tmpOutList.push(reason, inDate, outAmount);
         outList.push(tmpOutList);
     });
@@ -208,6 +209,8 @@ function preProcess() {
 
 function postProcess() {
     storeHistoryInput();
+    createPieIn();
+    createPieOut();
 }
 
 function storeHistoryInput() {
@@ -221,6 +224,108 @@ function storeHistoryInput() {
     store.set(now.getTime(), userInput);
     // console.log("now:" + now.getTime());
     // console.log("data:" + store);
+}
+
+function createPieIn() {
+    var userInput = parseDataFromUser();
+    var inMonth = userInput.inMonth;
+    var inList = userInput.inList;
+    var inVariable = 0;
+    for(var index in inList) {
+        inVariable += inList[index][2];
+    }
+    var ds1 = [inMonth, inVariable];
+    var context = document.getElementById("chart-in").getContext("2d");
+    var chartIn = new Chart(context, {
+        type: "pie",
+        data: {
+            
+            datasets: [{
+                data: ds1,
+                backgroundColor: [
+                    "rgb(250, 250, 25)",
+                    "rgb(250, 25, 250)"
+                ]
+            }],
+            labels: [
+                "固定收入",
+                "不固定收入"
+            ]
+            
+        },
+        options: {
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: "收入成分",
+                fontColor: "rgb(25, 250, 250)",
+                fontSize: 16
+            },
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: "rgb(20, 250, 250)",
+                    fontSize: 12
+                }
+            },
+            layout: {
+                padding: {
+                    left: 10,
+                    top: 0
+                }
+            }
+        }
+    });
+}
+
+function createPieOut() {
+    var userInput = parseDataFromUser();
+    var outMonth = userInput.outMonth;
+    var outList = userInput.outList;
+    var outVariable = 0;
+    for(var index in outList) {
+        outVariable += outList[index][2];
+    }
+    var ds1 = [outMonth, outVariable];
+    var context = document.getElementById("chart-out").getContext("2d");
+    var chartIn = new Chart(context, {
+        type: "pie",
+        data: {
+            datasets: [{
+                data: ds1,
+                backgroundColor: [
+                    "rgb(250, 250, 25)",
+                    "rgb(250, 25, 250)"
+                ]
+            }],
+            labels: [
+                "固定支出",
+                "不固定支出"
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: "支出成分",
+                fontColor: "rgb(25, 250, 250)",
+                fontSize: 16
+            },
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: "rgb(20, 250, 250)",
+                    fontSize: 12
+                }
+            },
+            layout: {
+                padding: {
+                    left: 10,
+                    top: 0
+                }
+            }
+        }
+    });
 }
 
 function getCurDate(f) {

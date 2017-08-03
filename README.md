@@ -10,10 +10,10 @@
 
 ## 打包为exe文件步骤
 
-1)在命令行输入 $npm install
+1)在命令行输入 $npm install  
 这一步会添加package.json中的依赖，在这个项目中是electron和electron-packager
 
-2)在控制台，使用如下的三条语句之一，就可以生成一个绿色版的免安装文件夹。
+2)根据系统，更改package.json中的scripts中的package-mac，或者package-win，或者package-linux。我的系统为win32。在控制台，使用如下的三条语句之一，就可以在release-builds下生成一个绿色版的免安装文件夹。
 ```bash
 npm run package-mac
 npm run package-win

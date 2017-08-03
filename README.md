@@ -8,6 +8,17 @@
 ## 实现
 用electron作为支撑，结合html和jquery进行界面和逻辑的开发
 
+## 打包为exe文件步骤
+
+1)在命令行输入 $npm install
+这一步会添加package.json中的依赖，在这个项目中是electron和electron-packager
+
+2)在控制台，使用如下的三条语句之一，就可以生成一个绿色版的免安装文件夹。
+```bash
+npm run package-mac
+npm run package-win
+npm run package-linux 
+```
 
 
 

@@ -4,7 +4,7 @@ const url = require('url')
 
 let win
 function createWindow() {
-    win = new BrowserWindow({width: 850, height: 600, show: false, resizable: true})
+    win = new BrowserWindow({width: 850, height: 600, show: false, resizable: false})
 
     //load the index.html file
     win.loadURL(url.format({
@@ -14,7 +14,7 @@ function createWindow() {
     }))
 
     //open dev tools
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
     win.on('closed', () => {
         win = null
     })
